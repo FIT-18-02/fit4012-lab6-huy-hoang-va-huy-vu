@@ -31,11 +31,18 @@ def get_plaintext() -> bytes:
 
 def send_packet(host: str, port: int, packet: bytes) -> None:
     """Open one TCP connection and send all bytes."""
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        sock.settimeout(TIMEOUT)
-        sock.connect((host, port))
-        sock.sendall(packet)
 
+    for _ in range(10):
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                sock.settimeout(TIMEOUT)
+                sock.connect((host, port))
+                sock.sendall(packet)
+                return
+        except ConnectionRefusedError:
+            time.sleep(0.5)
+
+    raise ConnectionRefusedError(f"Không thể kết nối tới {host}:{port}")
 
 def main() -> None:
     plaintext = get_plaintext()
