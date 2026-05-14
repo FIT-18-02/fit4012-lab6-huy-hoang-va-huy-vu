@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import socket
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -47,9 +46,9 @@ def main() -> None:
     send_packet(SERVER_IP, DATA_PORT, data_packet)
 
     lines = [
-        "[+] Đa taotạo AES key va IV.",
-        "[+] Đa gui key/IV qua kenh khoa.",
-        "[+] Đa gui ciphertext qua kenh du lieu.",
+        "[+] Đã tạo AES key và IV.",
+        "[+] Đã gửi key/IV qua kênh khóa.",
+        "[+] Đã gửi ciphertext qua kênh dữ liệu.",
         f"Server: {SERVER_IP}",
         f"Key port: {KEY_PORT}",
         f"Data port: {DATA_PORT}",

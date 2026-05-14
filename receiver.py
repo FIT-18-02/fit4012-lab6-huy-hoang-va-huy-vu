@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import socket
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -60,7 +59,7 @@ def receive_data_packet() -> bytes:
 def main() -> None:
     lines = []
 
-    line = f"[*] Receiver dang lang nghe kenh khoa tai {HOST}:{KEY_PORT}"
+    line = f"[*] Receiver đang lắng nghe kênh khóa tại {HOST}:{KEY_PORT}"
     print(line)
     lines.append(line)
 
@@ -71,7 +70,7 @@ def main() -> None:
     print(line)
     lines.append(line)
 
-    line = f"[*] Receiver dang lang nghe du lieu tai {HOST}:{DATA_PORT}"
+    line = f"[*] Receiver đang lắng nghe kênh dữ liệu tại {HOST}:{DATA_PORT}"
     print(line)
     lines.append(line)
 
@@ -80,7 +79,7 @@ def main() -> None:
     ciphertext = data_packet[LENGTH_HEADER_SIZE:]
 
     if len(ciphertext) != length:
-        raise ValueError("Ciphertext nhan duoc khong khop length header.")
+        raise ValueError("Ciphertext nhận được không khớp length header.")
 
     line = "[+] Đã nhận ciphertext."
     print(line)
@@ -90,12 +89,12 @@ def main() -> None:
     message = plaintext.decode("utf-8", errors="replace")
 
     lines.extend([
-        "[+] Da giai ma thanh cong.",
-        f"[+] Ban tin goc : {message}",
+        "[+] Đã giải mã thành công.",
+        f"[+] Bản tin gốc: {message}",
     ])
 
-    print("[+] Da giai ma thanh cong .")
-    print(f"[+] Ban tin goc : {message}")
+    print("[+] Đã giải mã thành công.")
+    print(f"[+] Bản tin gốc: {message}")
 
     if OUTPUT_FILE:
         Path(OUTPUT_FILE).write_bytes(plaintext)
