@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import time
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -38,7 +39,13 @@ def send_packet(host: str, port: int, packet: bytes) -> None:
 
 def main() -> None:
     plaintext = get_plaintext()
-    key, iv, ciphertext = encrypt_aes_cbc(plaintext, key_size=AES_KEY_SIZE)
+
+    time.sleep(1)
+
+    key, iv, ciphertext = encrypt_aes_cbc(
+        plaintext,
+        key_size=AES_KEY_SIZE
+    )
 
     key_packet = build_key_packet(key, iv)
     data_packet = build_data_packet(ciphertext)
